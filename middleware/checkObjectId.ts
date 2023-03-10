@@ -1,4 +1,3 @@
-// const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 // middleware to check for a valid object id
 const checkObjectId = (idToCheck) => (req, res, next): any => {

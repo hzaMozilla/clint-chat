@@ -1,3 +1,1 @@
-export enum MESSAGE {
-SERVER_ERR = 'server error',
-};
+export enum MESSAGE { SERVER_ERR = 'server error' };
