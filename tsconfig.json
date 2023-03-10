@@ -1,0 +1,73 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "lib": [
+      "es2015"
+    ],
+    "paths": {
+      "@config": [
+        "src/config/index"
+      ],
+      "@database/*": [
+        "src/database/*"
+      ],
+      "@entities/*": [
+        "src/entities/*"
+      ],
+      "@interfaces": [
+        "src/interfaces/index"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@app": [
+        "src/app"
+      ],
+      "@ormconfig": [
+        "ormconfig"
+      ],
+      "@server": [
+        "src/server"
+      ],
+      "@http": [
+        "src/http"
+      ]
+    },
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "service/server.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "jspm_packages",
+    "tmp",
+    "temp",
+    "bower_components",
+  ]
+}
