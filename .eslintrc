@@ -3,9 +3,9 @@
     "node": true,
     "es6": true
   },
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "prettier",
-    "google",
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [

@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import { check, validationResult } from 'express-validator';
-import auth from '../../middleware/auth';
-import User from '../../models/User';
+import auth from '@src/middleware/auth';
+import User from '@src/models/User';
 
 const authRouter = express.Router();
 // @params authRouter    GET api/auth
@@ -14,7 +14,7 @@ authRouter.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
-  } catch (err) {
+  } catch (err:any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -62,7 +62,7 @@ authRouter.post(
           res.json({ token, user });
         }
       );
-    } catch (err) {
+    } catch (err:any) {
       console.error(err.message);
       res.status(500).send('Server error');
     }

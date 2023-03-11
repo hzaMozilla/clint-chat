@@ -1,15 +1,15 @@
 import express from 'express';
 import axios from 'axios';
 import config from 'config';
-import auth from '../../middleware/auth';
+import auth from '@src/middleware/auth';
 import { check, validationResult } from 'express-validator';
 // bring in normalize to give us a proper url, regardless of what user entered
 import normalize from 'normalize-url';
-import checkObjectId from '../../middleware/checkObjectId';
+import checkObjectId from '@src/middleware/checkObjectId';
 
-import Profile from '../../models/Profile';
-import User from '../../models/User';
-import Post from '../../models/Post';
+import Profile from '@src/models/Profile';
+import User from '@src/models/User';
+import Post from '@src/models/Post';
 
 // @route    GET api/profile/me
 // @desc     Get current users profile
@@ -22,7 +22,7 @@ router.get('/me', auth, async (req, res) => {
     }).populate('user', ['name', 'avatar']);
 
     res.json(profile);
-  } catch (err) {
+  } catch (err:any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -87,7 +87,7 @@ router.post(
         { new: true, upsert: true, setDefaultsOnInsert: true }
       );
       return res.json(profile);
-    } catch (err) {
+    } catch (err:any) {
       console.error(err.message);
       return res.status(500).send('Server Error');
     }
@@ -104,7 +104,7 @@ router.get('/', async (req, res) => {
       'avatar'
     ]);
     res.json(profiles);
-  } catch (err) {
+  } catch (err:any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -128,7 +128,7 @@ router.get(
       }
 
       return res.json(profile);
-    } catch (err) {
+    } catch (err:any) {
       console.error(err.message);
       return res.status(500).json({ msg: 'Server error' });
     }
@@ -150,7 +150,7 @@ router.delete('/', auth, async (req, res) => {
     ]);
 
     res.json({ msg: 'User deleted' });
-  } catch (err) {
+  } catch (err:any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -181,7 +181,7 @@ router.put(
       await profile.save();
 
       res.json(profile);
-    } catch (err) {
+    } catch (err:any) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
@@ -234,7 +234,7 @@ router.put(
       await profile.save();
 
       res.json(profile);
-    } catch (err) {
+    } catch (err:any) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
@@ -274,7 +274,7 @@ router.get('/github/:username', async (req, res) => {
 
     const gitHubResponse = await axios.get(uri, { headers });
     return res.json(gitHubResponse.data);
-  } catch (err) {
+  } catch (err:any) {
     console.error(err.message);
     return res.status(404).json({ msg: 'No Github profile found' });
   }

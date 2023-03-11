@@ -9,44 +9,29 @@
     "noImplicitAny": false,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "lib": [
       "es2015"
     ],
     "paths": {
-      "@config": [
-        "src/config/index"
+      "@src/*": [
+        "./src/*"
+      ],
+      "@config/*": [
+        "./src/database/*"
       ],
       "@database/*": [
-        "src/database/*"
+        "./src/database/*"
       ],
-      "@entities/*": [
-        "src/entities/*"
-      ],
-      "@interfaces": [
-        "src/interfaces/index"
-      ],
-      "@services/*": [
-        "src/services/*"
+      "@interfaces/*": [
+        "./src/interfaces/*"
       ],
       "@constants/*": [
-        "src/constants/*"
+        "./src/constants/*"
       ],
       "@utils/*": [
-        "src/utils/*"
+        "./src/utils/*"
       ],
-      "@app": [
-        "src/app"
-      ],
-      "@ormconfig": [
-        "ormconfig"
-      ],
-      "@server": [
-        "src/server"
-      ],
-      "@http": [
-        "src/http"
-      ]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

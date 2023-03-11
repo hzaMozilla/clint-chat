@@ -1,9 +1,9 @@
 import express from 'express';
 import { check, validationResult } from 'express-validator';
-import auth from '../../middleware/auth';
-import Post from '../../models/Post';
-import User from '../../models/User';
-import checkObjectId from '../../middleware/checkObjectId';
+import auth from '@src/middleware/auth';
+import Post from '@src/models/Post';
+import User from '@src/models/User';
+import checkObjectId from '@src/middleware/checkObjectId';
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -32,7 +32,7 @@ router.post(
       const post = await newPost.save();
 
       res.json(post);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
@@ -46,7 +46,7 @@ router.get('/', auth, async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
     res.json(posts);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -64,7 +64,7 @@ router.get('/:id', auth, checkObjectId('id'), async (req, res) => {
     }
 
     res.json(post);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
 
     res.status(500).send('Server Error');
@@ -90,7 +90,7 @@ router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
     await post.remove();
 
     res.json({ msg: 'Post removed' });
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
 
     res.status(500).send('Server Error');
@@ -114,7 +114,7 @@ router.put('/like/:id', auth, checkObjectId('id'), async (req, res) => {
     await post.save();
 
     return res.json(post.likes);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -140,7 +140,7 @@ router.put('/unlike/:id', auth, checkObjectId('id'), async (req, res) => {
     await post.save();
 
     return res.json(post.likes);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -176,7 +176,7 @@ router.post(
       await post.save();
 
       res.json(post.comments);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
@@ -210,7 +210,7 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     await post.save();
 
     return res.json(post.comments);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
     return res.status(500).send('Server Error');
   }
@@ -232,7 +232,7 @@ router.get('/like/:id', auth, async (req, res) => {
         }
       });
     res.json(likes);
-  } catch (err) {
+  } catch (err: any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }

@@ -1,96 +1,17 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
-import config from 'config';
 import mongoose from 'mongoose';
-import auth from '../../middleware/auth';
-import Message from '../../models/Message';
-import Conversation from '../../models/Conversation';
-import GlobalMessage from '../../models/GlobalMessage';
+import auth from '@src/middleware/auth';
+import Message from '@src/models/Message';
+import Conversation from '@src/models/Conversation';
 
-let jwtUser: any;
 const router = express.Router();
-
-router.use(function(req, res, next) {
-  const token = req.header('x-auth-token');
-
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
-  // Verify token
-  try {
-    jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
-      if (error) {
-        return res.status(401).json({ msg: 'Token is not valid' });
-      } else {
-        jwtUser = decoded.user;
-        console.log(jwtUser);
-        next();
-      }
-    });
-  } catch (err) {
-    console.error('something wrong with auth middleware');
-    res.status(500).json({ msg: 'Server Error' });
-  }
-});
-
-// Get global messages
-router.get('/global', (req, res) => {
-  GlobalMessage.aggregate([
-    {
-      $lookup: {
-        from: 'user',
-        localField: 'from',
-        foreignField: '_id',
-        as: 'fromObj'
-      }
-    }
-  ])
-    .project({
-      'fromObj.password': 0,
-      'fromObj.__v': 0,
-      'fromObj.date': 0
-    })
-    .exec((err, messages) => {
-      if (err) {
-        console.log(err);
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ message: 'Failure' }));
-        res.sendStatus(500);
-      } else {
-        res.send(messages);
-      }
-    });
-});
-
-// Post global message
-router.post('/global', (req, res) => {
-  const message = new GlobalMessage({
-    from: jwtUser.id,
-    body: req.body.body
-  });
-
-  req.io.sockets.emit('messages', req.body.body);
-
-  message.save((err) => {
-    if (err) {
-      console.log(err);
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ message: 'Failure' }));
-      res.sendStatus(500);
-    } else {
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify({ message: 'Success' }));
-    }
-  });
-});
-
 // Get conversations list
 router.get('/conversations', (req, res) => {
-  const from = mongoose.Types.ObjectId(jwtUser.id);
+  const from = mongoose.Types.ObjectId(req.query.Id);
   Conversation.aggregate([
     {
       $lookup: {
-        from: 'user',
+        from: 'users',
         localField: 'recipients',
         foreignField: '_id',
         as: 'recipientObj'
@@ -118,12 +39,12 @@ router.get('/conversations', (req, res) => {
 // Get messages from conversation
 // based on to & from
 router.get('/conversations/query', (req, res) => {
-  const user1 = mongoose.Types.ObjectId(jwtUser.id);
-  const user2 = mongoose.Types.ObjectId(req.query.userId);
+  const user1 = mongoose.Types.ObjectId(req.query.fromId);
+  const user2 = mongoose.Types.ObjectId(req.query.toId);
   Message.aggregate([
     {
       $lookup: {
-        from: 'user',
+        from: 'users',
         localField: 'to',
         foreignField: '_id',
         as: 'toObj'
@@ -131,7 +52,7 @@ router.get('/conversations/query', (req, res) => {
     },
     {
       $lookup: {
-        from: 'user',
+        from: 'users',
         localField: 'from',
         foreignField: '_id',
         as: 'fromObj'
@@ -166,7 +87,7 @@ router.get('/conversations/query', (req, res) => {
 
 // Post private message
 router.post('/', auth, (req, res) => {
-  const from = mongoose.Types.ObjectId(jwtUser.id);
+  const from = mongoose.Types.ObjectId(req.body.from);
   const to = mongoose.Types.ObjectId(req.body.to);
 
   Conversation.findOneAndUpdate(
@@ -176,7 +97,7 @@ router.post('/', auth, (req, res) => {
       }
     },
     {
-      recipients: [jwtUser.id, req.body.to],
+      recipients: [req.body.from, req.body.to],
       lastMessage: req.body.body,
       date: Date.now()
     },
@@ -191,7 +112,7 @@ router.post('/', auth, (req, res) => {
         const message = new Message({
           conversation: conversation._id,
           to: req.body.to,
-          from: jwtUser.id,
+          from: req.body.from,
           body: req.body.body
         });
 

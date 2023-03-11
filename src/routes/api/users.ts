@@ -95,7 +95,7 @@ router.post(
           res.json({ token });
         }
       );
-    } catch (err) {
+    } catch (err:any) {
       console.error(err.message);
       res.status(500).send('Server error');
     }
