@@ -1,6 +1,6 @@
 import express from 'express';
 import gravatar from 'gravatar';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import { check, validationResult } from 'express-validator';
