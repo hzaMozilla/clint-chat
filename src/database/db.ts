@@ -1,7 +1,10 @@
 import config from 'config';
 import mongoose from 'mongoose';
+
 const db = config.get('mongoURI');
+
 const connectDB = async (_params?: any) => {
+  console.log('MongoDB Connecting...');
   try {
     await mongoose.connect(db, {
       useNewUrlParser: true,

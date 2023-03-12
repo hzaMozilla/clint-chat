@@ -1,26 +1,23 @@
 {
-  "name": "shopify",
+  "name": "shopify-server",
   "version": "1.0.0",
   "description": "Shopify Website with Chat and OTP",
-  "main": "server.js",
+  "main": "app.ts",
   "scripts": {
-    "prestart": "start mongod --dbpath ./DB",
     "preserver": "start mongod --dbpath ./DB",
-    "server": "nodemon server",
-    "dev": "concurrently \"npm run server\"",
-    "lint": "eslint --ext .js,.jsx,.ts, --fix  ./src",
-    "lint-fix": "eslint --fix **/*.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ENV=dev ts-node -r tsconfig-paths/register' src/app.ts",
+    "start": "ENV=dev node -r tsconfig-paths/register -r ts-node/register ./dist/src/app.js",
+    "build": "tsc",
     "tsc": "tsc --watch",
-    "start": "nodemon -e ts --exec ts-node src/app.ts",
-    "webpack": "webpack --config webpack.config.js --watch"
+    "server": "nodemon server",
+    "test": "ts-node -r tsconfig-paths/register src/app.ts",
+    "lint": "eslint --ext .js,.jsx,.ts, --fix  ./src",
+    "lint-fix": "eslint --fix **/*.js"
   },
-  "type": "module",
   "author": "Brad Traversy",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.0",
-    "bcryptjs": "^2.4.3",
     "config": "^3.3.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -28,15 +25,23 @@
     "gravatar": "^1.8.1",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.11.8",
-    "nexmo": "^2.9.1",
+    "nexmo": "^0.0.7",
     "normalize-url": "^5.3.0",
     "socket.io": "^2.4.0",
-    "typescript": "^4.9.5"
+    "dotenv": "^16.0.0",
+    "typedi": "^0.10.0",
+    "typeorm": "^0.2.41",
+    "typeorm-seeding": "^1.6.1",
+    "tsconfig-paths": "^3.14.1",
+    "redis": "^3.1.2",
+    "bcrypt": "^5.0.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "@types/dotenv": "^8.2.0",
     "concurrently": "^5.3.0",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
@@ -45,6 +50,8 @@
     "husky": "^7.0.4",
     "nodemon": "^2.0.6",
     "prettier": "^2.6.2",
-    "ts-node": "^10.9.1"
-  }
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "repository": "https://github.com/hzaMozilla/clint-chat.git"
 }

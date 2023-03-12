@@ -6,7 +6,7 @@ import Conversation from '@src/models/Conversation';
 
 const router = express.Router();
 // Get conversations list
-router.get('/conversations', (req, res) => {
+router.get('/conversations', (req:any, res) => {
   const from = mongoose.Types.ObjectId(req.query.Id);
   Conversation.aggregate([
     {
@@ -38,7 +38,7 @@ router.get('/conversations', (req, res) => {
 
 // Get messages from conversation
 // based on to & from
-router.get('/conversations/query', (req, res) => {
+router.get('/conversations/query', (req:any, res) => {
   const user1 = mongoose.Types.ObjectId(req.query.fromId);
   const user2 = mongoose.Types.ObjectId(req.query.toId);
   Message.aggregate([
@@ -86,7 +86,7 @@ router.get('/conversations/query', (req, res) => {
 });
 
 // Post private message
-router.post('/', auth, (req, res) => {
+router.post('/', auth, (req:any, res) => {
   const from = mongoose.Types.ObjectId(req.body.from);
   const to = mongoose.Types.ObjectId(req.body.to);
 

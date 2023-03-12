@@ -1,24 +1,22 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "CommonJS",
     "sourceMap": true,
     "outDir": "dist",
+    "declaration": true,
     "rootDir": ".",
+    "baseUrl": ".",
     "strict": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "baseUrl": "./",
     "lib": [
       "es2015"
     ],
     "paths": {
       "@src/*": [
         "./src/*"
-      ],
-      "@config/*": [
-        "./src/database/*"
       ],
       "@database/*": [
         "./src/database/*"
@@ -38,21 +36,15 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "service/server.ts",
   ],
   "exclude": [
     "node_modules",
     "dist",
     "build",
-    "coverage",
-    "jspm_packages",
-    "tmp",
-    "temp",
-    "bower_components",
   ]
 }

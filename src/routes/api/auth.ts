@@ -5,16 +5,16 @@ import config from 'config';
 import { check, validationResult } from 'express-validator';
 import auth from '@src/middleware/auth';
 import User from '@src/models/User';
+import { AuthRouterResponse } from '../type';
 
 const authRouter = express.Router();
-// @params authRouter    GET api/auth
-// @desc     Get user by token
-// @access   Private
-authRouter.get('/', auth, async (req, res) => {
+
+
+authRouter.get('/', auth, async (req: any, res: AuthRouterResponse) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
-  } catch (err:any) {
+  } catch (err: any) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
@@ -62,7 +62,7 @@ authRouter.post(
           res.json({ token, user });
         }
       );
-    } catch (err:any) {
+    } catch (err: any) {
       console.error(err.message);
       res.status(500).send('Server error');
     }

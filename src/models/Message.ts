@@ -1,6 +1,7 @@
 import Mongoose from 'mongoose';
 
 const Schema = Mongoose.Schema;
+
 const MessageSchema = new Schema({
   conversation: {
     type: Schema.Types.ObjectId,

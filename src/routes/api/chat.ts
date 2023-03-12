@@ -10,7 +10,7 @@ import GlobalMessage from '@src/models/GlobalMessage';
 let jwtUser: any;
 const router = express.Router();
 
-router.use(function(req, res, next) {
+router.use(function(req:any, res, next) {
   const token = req.header('x-auth-token');
 
   if (!token) {
@@ -63,7 +63,7 @@ router.get('/global', (req, res) => {
 });
 
 // Post global message
-router.post('/global', (req, res) => {
+router.post('/global', (req:any, res) => {
   const message = new GlobalMessage({
     from: jwtUser.id,
     body: req.body.body
@@ -85,7 +85,7 @@ router.post('/global', (req, res) => {
 });
 
 // Get conversations list
-router.get('/conversations', (req, res) => {
+router.get('/conversations', (_req, res) => {
   const from = mongoose.Types.ObjectId(jwtUser.id);
   Conversation.aggregate([
     {
@@ -117,7 +117,7 @@ router.get('/conversations', (req, res) => {
 
 // Get messages from conversation
 // based on to & from
-router.get('/conversations/query', (req, res) => {
+router.get('/conversations/query', (req:any, res) => {
   const user1 = mongoose.Types.ObjectId(jwtUser.id);
   const user2 = mongoose.Types.ObjectId(req.query.userId);
   Message.aggregate([
@@ -165,7 +165,7 @@ router.get('/conversations/query', (req, res) => {
 });
 
 // Post private message
-router.post('/', auth, (req, res) => {
+router.post('/', auth, (req:any, res) => {
   const from = mongoose.Types.ObjectId(jwtUser.id);
   const to = mongoose.Types.ObjectId(req.body.to);
 
