@@ -53,5 +53,7 @@ This is the suggested scaffolding for this project. You can take a look at:
 ├── prod-path.js          (Tool used to run in production, translates ts-path and alias)
 ```
 
-## Dependencies
+## Dependencies  
 
+node-ts-api-base-master
+node-ts-api-base
