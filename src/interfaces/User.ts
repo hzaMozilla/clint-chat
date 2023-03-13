@@ -5,8 +5,8 @@ export interface User {
   avtar: string;
   password: string;
   email: string;
-  first_name: string;
-  second_name: string;
+  firstName: string;
+  secondName: string;
   date: Date;
   address: string;
   address2: string;

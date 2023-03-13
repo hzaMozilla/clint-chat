@@ -29,10 +29,8 @@ router.post(
     }
 
     const {
-      // eslint-disable-next-line camelcase
-      first_name,
-      // eslint-disable-next-line camelcase
-      second_name,
+      firstName,
+      secondName,
       email,
       password,
       vat,
@@ -59,8 +57,8 @@ router.post(
       );
 
       user = new User({
-        first_name,
-        second_name,
+        firstName,
+        secondName,
         email,
         avatar,
         password,

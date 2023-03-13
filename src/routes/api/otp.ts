@@ -12,7 +12,7 @@ router.post('/send', (_req: any, _res: any) => {
     {
       number: '18017884331',
       brand: 'Pixs',
-      code_length: '6'
+      codeLength: '6'
     },
     // eslint-disable-next-line camelcase
     (err: any, result: { request_id: string; }) => {

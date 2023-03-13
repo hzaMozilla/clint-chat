@@ -30,6 +30,7 @@
       "@utils/*": [
         "./src/utils/*"
       ],
+      "@configs/*": ["./src/configs/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
