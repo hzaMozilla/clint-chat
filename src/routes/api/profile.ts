@@ -117,10 +117,10 @@ router.get(
   '/user/:user_id',
   checkObjectId('user_id'),
   // eslint-disable-next-line camelcase
-  async ({ params: { userId } }, res) => {
+  async ({ params: { user_id } }, res) => {
     try {
       const profile = await Profile.findOne({
-        user: userId
+        user: user_id
       }).populate('user', ['name', 'avatar']);
 
       if (!profile) {

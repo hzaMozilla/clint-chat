@@ -17,7 +17,7 @@ const connection = {
   async close(): Promise<void> {
     await getConnection().close();
   },
-
+  // 清除数据
   async clear(): Promise<void> {
     const connection = getConnection();
     const entities = connection.entityMetadatas;
@@ -38,4 +38,3 @@ const connection = {
 };
 
 export default connection;
-aaaaaaa

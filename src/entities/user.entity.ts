@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Column, Entity, Index } from 'typeorm';
-import { Base } from './base-entity';
+import { Base } from './base.entity';
 @Entity()
 export class User extends Base {
   @Column({ nullable: true })

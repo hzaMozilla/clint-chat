@@ -1,6 +1,5 @@
-import { ErrorsMessages } from '../constants/errorMessages';
+import { HttpStatusCode, ErrorsMessages } from '@src/constants';
 import { BaseError } from './base.error';
-import { HttpStatusCode } from '../constants/httpStatusCode';
 export class DatabaseError extends BaseError {
   constructor(description: string) {
     super(
