@@ -1,8 +1,8 @@
 import { createConnection, getConnection, Connection } from 'typeorm';
-import config from '../../ormconfig';
+import config from '../../orm.config';
 
+// 连接数据库
 const connection = {
-  // 链接数据库
   async create(callback?: (c: Connection) => void): Promise<void> {
     try {
       const connection = await createConnection(config);

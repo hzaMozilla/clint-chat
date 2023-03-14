@@ -3,3 +3,11 @@ config/production.json
 client/build
 client/.eslintcache
 DB
+.env.dev
+.env.test
+.env.prod
+
+.env.dev
+.env.staging
+.env.prod
+.env.test

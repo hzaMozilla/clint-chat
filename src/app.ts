@@ -1,7 +1,9 @@
+import 'reflect-metadata';
 import express from 'express';
-// import connectDB from './database/db';
 import path from 'path';
 import socketIO from 'socket.io';
+import connection from '@src/database/connection';
+import { PORT, TESTING_ENV, CI_ENV } from './configs';
 
 // route
 import AuthRouter from '@src/routes/api/auth';
@@ -18,20 +20,25 @@ const app = express();
 app.use(express.json());
 
 // 服务情景
-if (process.env.NODE_ENV === 'production') {
+if (process.env.ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (_req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+// server port
+const server = async () => {
+  if (!TESTING_ENV && !CI_ENV) {
+    app.listen(PORT || 8099, () => {
+      return console.log(
+        `Server is listening on ${PORT}`
+      );
+    });
+  }
+};
 
-const PORT = process.env.PORT || 8097;
-
-const server = app.listen(PORT, () =>
-  console.log(`Server started on port ${PORT}`)
-);
-
-app.use((req:any, _res, next) => {
+// 注册socket
+app.use((req: any, _res, next) => {
   req.io = socketIO.listen(server);
   next();
 });
@@ -42,3 +49,5 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/profile', Profile);
 app.use('/api/posts', Posts);
 app.use('/api/messages', Messages as any);
+
+connection.create(server);

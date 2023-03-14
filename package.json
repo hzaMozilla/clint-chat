@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "preserver": "start mongod --dbpath ./DB",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ENV=dev ts-node -r tsconfig-paths/register' src/app.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node -r tsconfig-paths/register' src/app.ts",
     "start": "ENV=dev node -r tsconfig-paths/register -r ts-node/register ./dist/src/app.js",
     "build": "tsc",
     "tsc": "tsc --watch",
@@ -31,13 +31,12 @@
     "mongoose": "^5.11.8",
     "nexmo": "^0.0.7",
     "normalize-url": "^5.3.0",
-    "redis": "^3.1.2",
-    "routing-controllers": "^0.9.0",
-    "routing-controllers-openapi": "^3.1.0",
+    "routing-controllers": "^0.10.2",
+    "routing-controllers-openapi": "^4.0.0",
     "socket.io": "^2.4.0",
     "tsconfig-paths": "^3.14.1",
     "typedi": "^0.10.0",
-    "typeorm": "^0.2.41",
+    "typeorm": "^0.3.12",
     "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
